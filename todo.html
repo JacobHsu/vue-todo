@@ -90,8 +90,8 @@
       </li> -->
     </ul>
     <div class="card-footer d-flex justify-content-between">
-      <span>還有 3 筆任務未完成</span>
-      <a href="#">清除所有任務</a>
+      <span>還有 {{unFinishedTodoLength}} 筆任務未完成</span>
+      <a href="#" @click="clearAllCompleted">清除所有已完成任務</a>
     </div>
   </div>
 </div>
@@ -144,6 +144,9 @@ var app = new Vue({
       item.title = this.cacheTitle;
       this.cacheTitle = '';
       this.cacheTodo = {};
+    },
+    clearAllCompleted() {
+      this.todos = this.todos.filter(todo=>!todo.completed)
     }
   },
   computed: {
@@ -168,6 +171,9 @@ var app = new Vue({
         return newTodos;
       }
       return [];
+    },
+    unFinishedTodoLength() {
+      return this.todos.filter(todo=>!todo.completed).length
     }
   }
 });
